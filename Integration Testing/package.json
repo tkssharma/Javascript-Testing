@@ -1,0 +1,53 @@
+{
+  "name": "assignment",
+  "version": "1.0.0",
+  "description": "node js assignment",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha 'test/**/*.js' --timeout 10000",
+    "lint": "jshint --exclude ./node_modules/*.js *.js **/*.js",
+    "start": "nodemon server.js",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
+    "docs": "apidoc -i app/ -o apidoc/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tkssharma/Assignment-Node.git"
+  },
+  "author": "@kssharma",
+  "license": "MIT",
+  "devDependencies": {
+    "apidoc": "^0.17.5",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "istanbul": "^0.4.5",
+    "jshint": "^2.9.4",
+    "mocha": "^2.4.5",
+    "morgan": "1.7.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "sourceMaps": true,
+    "retainLines": true
+  },
+  "dependencies": {
+    "axios": "^0.14.0",
+    "bluebird": "^3.4.7",
+    "body-parser": "1.15.2",
+    "cors": "2.8.0",
+    "csurf": "^1.9.0",
+    "express": "4.14.0",
+    "express-session": "1.14.1",
+    "helmet": "^3.4.0",
+    "lodash": "4.15.0",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "superagent": "^3.4.4",
+    "superagent-promise": "^1.1.0",
+    "supertest": "^3.0.0",
+    "validator": "5.5.0",
+    "winston": "^2.3.1"
+  }
+}
