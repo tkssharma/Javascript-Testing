@@ -4,22 +4,19 @@ const ResponseTemplate = require('../templates/response');
  * @param {req,res,next}
  * @returns {error,next()}  return response or forward api call to next Middleware
  */
-   /* istanbul ignore next */
-let ContentType = (req, res, next) => {
+/* istanbul ignore next */
+const ContentType = (req, res, next) => {
+  if (req.method === 'POST') {
+    const content_type = req.headers['content-type'];
 
-    if (req.method === 'POST') {
-        let content_type = req.headers['content-type'];
-
-        if (!content_type || content_type.indexOf('application/json') !== 0) {
-            res.json(ResponseTemplate.invalidContentType());
-        } else {
-            next();
-        }
+    if (!content_type || content_type.indexOf('application/json') !== 0) {
+      res.json(ResponseTemplate.invalidContentType());
     } else {
-        next();
+      next();
     }
+  } else {
+    next();
+  }
+};
 
-}
-
-
-module.exports =  ContentType;
+module.exports = ContentType;

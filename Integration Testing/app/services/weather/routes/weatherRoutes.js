@@ -1,17 +1,15 @@
-const express= require('express');
-const weatherTransformer= require('../transformer/weatherTransformer');
-const path= require('path');
-const api_server= require('../../../global/config');
-const axios= require('axios');
-const weatherController= require('../controller/weatherController');
-const ResponseTemplate= require('../../../global/templates/response')
-const winston= require('winston');
-const validateLocation= require('../../../global/middlewares/ValidateRequestLocation')
-const validateWeekday= require('../../../global/middlewares/ValidateRequestDay')
+const express = require('express');
+const path = require('path');
+const axios = require('axios');
+const winston = require('winston');
+const weatherTransformer = require('../transformer/weatherTransformer');
+const api_server = require('../../../global/config');
+const weatherController = require('../controller/weatherController');
+const ResponseTemplate = require('../../../global/templates/response');
+const validateLocation = require('../../../global/middlewares/ValidateRequestLocation');
+const validateWeekday = require('../../../global/middlewares/ValidateRequestDay');
 
-
-
-let router = express.Router();
+const router = express.Router();
 
 /**
  * @api {get} / Request Weather information
@@ -26,19 +24,19 @@ let router = express.Router();
  */
 
 router.get('/', (req, res) => {
-    weatherController.fetch(function(err, weatherData) {
-        winston.log('info', 'Running inside Controlller')
+  weatherController.fetch(function(err, weatherData) {
+    winston.log('info', 'Running inside Controlller');
 
-        if (err) {
-            res.json(ResponseTemplate.error(err.code, err.message));
-        } else {
-            res.json({
-                code: 200,
-                message: 'success',
-                weather: weatherData
-            });
-        }
-    });
+    if (err) {
+      res.json(ResponseTemplate.error(err.code, err.message));
+    } else {
+      res.json({
+        code: 200,
+        message: 'success',
+        weather: weatherData,
+      });
+    }
+  });
 });
 
 /**
@@ -52,20 +50,22 @@ router.get('/', (req, res) => {
  * @apiSuccess {String} message= require(response.
  * @apiSuccess {object} weatherData fetched data of weather.
  */
- //app.use()
+// app.use()
 router.get('/:location', validateLocation, (req, res) => {
-    weatherController.fetchByCity(req.params.location, function(err, weatherData) {
-        if (err) {
-            res.json(ResponseTemplate.error(err.code, err.message));
-        } else {
-            res.json({
-                code: 200,
-                message: 'success',
-                weatherData: weatherData
-            });
-        }
-    });
-
+  weatherController.fetchByCity(req.params.location, function(
+    err,
+    weatherData,
+  ) {
+    if (err) {
+      res.json(ResponseTemplate.error(err.code, err.message));
+    } else {
+      res.json({
+        code: 200,
+        message: 'success',
+        weatherData,
+      });
+    }
+  });
 });
 
 /**
@@ -81,21 +81,27 @@ router.get('/:location', validateLocation, (req, res) => {
  * @apiSuccess {object} weatherData fetched data of weather.
  */
 
-router.get('/:location/:weekday', validateLocation, validateWeekday, (req, res) => {
-    weatherController.fetchByCityAndDay(req.params.location, req.params.weekday, function(err, weatherData) {
+router.get(
+  '/:location/:weekday',
+  validateLocation,
+  validateWeekday,
+  (req, res) => {
+    weatherController.fetchByCityAndDay(
+      req.params.location,
+      req.params.weekday,
+      function(err, weatherData) {
         if (err) {
-            res.json(ResponseTemplate.error(err.code, err.message));
+          res.json(ResponseTemplate.error(err.code, err.message));
         } else {
-            res.json({
-                code: 200,
-                message: 'success',
-                weatherData: weatherData
-            });
+          res.json({
+            code: 200,
+            message: 'success',
+            weatherData,
+          });
         }
-    });
-});
+      },
+    );
+  },
+);
 
-
-
-
-module.exports = router
+module.exports = router;

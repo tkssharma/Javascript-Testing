@@ -6,9 +6,8 @@ const WeatherServiceRoutes = require('./services/weather/routes/weatherRoutes');
  * All express routes will prefixed with weather
  * @returns {object} weatherData fetched data of weather.
  */
-let routes = function(app) {
+const routes = function(app) {
+  app.use('/weather', WeatherServiceRoutes);
+};
 
-    app.use('/weather', WeatherServiceRoutes);
-}
-
-module.exports =  routes;
+module.exports = routes;

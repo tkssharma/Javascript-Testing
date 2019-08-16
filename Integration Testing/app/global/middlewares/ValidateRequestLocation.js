@@ -6,12 +6,11 @@ const Util = require('../api');
  * @accepted if its string
  * @returns {error,next()}  return response or forward api call to next Middleware
  */
-  /* istanbul ignore next */
-let validateLocation = (req, res, next) => {
+/* istanbul ignore next */
+const validateLocation = (req, res, next) => {
+  if (req.method === 'GET') {
+    next();
+  }
+};
 
-    if (req.method === 'GET') {
-     next();
-    }
-}
-
-module.exports =  validateLocation;
+module.exports = validateLocation;

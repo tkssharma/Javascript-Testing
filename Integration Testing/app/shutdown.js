@@ -8,14 +8,16 @@ function shutdown(exitCode = 0) {
   console.log('shutdown started');
   // appInstance.server.close();
   if (process.env.NODE_ENV === 'test') {
-    return console.error('<<<<<<<<<<<<<<<<<<<<<🤬👆👆👆👆👆🤬>>>>>>>>>>>>>>>>>>>>');
+    return console.error(
+      '<<<<<<<<<<<<<<<<<<<<<🤬👆👆👆👆👆🤬>>>>>>>>>>>>>>>>>>>>',
+    );
   }
-      return process.exit(exitCode); 
+  return process.exit(exitCode);
 }
 
 /**
  * Handles uncaughtException
-  * @param {Error} err
+ * @param {Error} err
  */
 function onError(error) {
   /** Hide stack trace for known errors */
@@ -38,5 +40,5 @@ function unhandledRejection(reason, promise) {
 module.exports = {
   shutdown,
   unhandledRejection,
-  onError
+  onError,
 };
